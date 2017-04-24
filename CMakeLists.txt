@@ -10,7 +10,9 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   pcl_conversions
   pcl_ros
-  tf)
+  tf
+  laser_geometry
+  )
 
 find_package(Eigen3 REQUIRED)
 find_package(PCL REQUIRED)
@@ -18,14 +20,15 @@ find_package(OpenCV REQUIRED)
 
 include_directories(
   #include
-        ${catkin_INCLUDE_DIRS}
-        ${EIGEN3_INCLUDE_DIR}
-        ${PCL_INCLUDE_DIRS})
+  ${catkin_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
+  ${PCL_INCLUDE_DIRS}
+  )
 
 catkin_package(
+  #INCLUDE_DIRS include
   CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy std_msgs
   DEPENDS EIGEN3 PCL OpenCV
-  #INCLUDE_DIRS include
 )
 
 add_executable(scanRegistration_ct src/scanRegistration.cpp)
@@ -40,6 +43,8 @@ target_link_libraries(laserMapping_ct ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${Ope
 add_executable(transformMaintenance_ct src/transformMaintenance.cpp)
 target_link_libraries(transformMaintenance_ct ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBS})
 
+add_executable(fakeContinueScan_ct src/fakeContinueScan.cpp)
+target_link_libraries(fakeContinueScan_ct ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBS})
 
 #if (CATKIN_ENABLE_TESTING)
 #  find_package(rostest REQUIRED)
